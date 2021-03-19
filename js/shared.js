@@ -66,10 +66,6 @@ export function clean() {
                 setTimeout(resolve, 50);
             });
         });
-        // return execute(CLEAN_LABEL, () => {
-        //     //   rootHtml = root.innerHTML;
-        //     root.innerHTML = '';
-        // });
     });
 }
 
