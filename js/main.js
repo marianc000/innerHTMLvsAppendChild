@@ -1,26 +1,23 @@
-import innerHTML from './innerHTML.js';
-import appendDocumentFragment from './appendDocumentFragment.js';
-import appendNodeManyTimes from './appendNodeManyTimes.js'
-import { printResults, clean } from './shared.js';
 
-function run() {
-    const times = 10;
-    let p = Promise.resolve(); // needed to chain measurements
+import run from './benchmarking.js';
+import documentFragment from './approaches/documentFragment.js';
+import nodes from './approaches/nodes.js';
+import html from './approaches/html.js';
+import data from './data.js';
 
-    for (let i = 0; i < times; i++) {
-        p = p.then(appendDocumentFragment).then(clean);
-    }
+const approaches = { documentFragment, nodes, html };
 
-    for (let i = 0; i < times; i++) {
-        p = p.then(appendNodeManyTimes).then(clean);
-    }
-
-    for (let i = 0; i < times; i++) {
-        p = p.then(innerHTML).then(clean);
-    }
-
-    p.then(clean).then(printResults);
+startBtn.onclick = ()=>{
+    document.querySelector('.controls').remove();
+    run();
 }
 
-document.querySelector('button').onclick = run;
+const buttons = document.querySelectorAll('button[name]');
+buttons.forEach(btn => btn.onclick = onClick);
 
+function onClick() {
+    buttons.forEach(btn => btn.className = (btn === this ? 'selected' : ''));
+    root.innerHTML = '';
+    console.log(this.name);
+    approaches[this.name](data);
+}

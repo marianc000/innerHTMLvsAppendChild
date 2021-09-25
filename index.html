@@ -2,12 +2,19 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="js/main.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <div id="root"><button type="button" name="start">Start</button></div>
-    <script type="module" src="js/main.js"></script>
+    <div class='controls'>
+        <h1>Illustration for post <a href='https://marian-caikovski.medium.com/innerhtml-vs-appendchild-e74c763846df'>innerHTML vs appendChild()</a></h1>
+        <button name='html'>innerHTML</button>
+        <button name='nodes'>appendChild() for each row</button>
+        <button name='documentFragment'>appendChild(DocumentFragment with all rows)</button>
+        <button id='startBtn' >Start</button>
+    </div>
+    <div id="root"></div>
 </body>
 
 </html>

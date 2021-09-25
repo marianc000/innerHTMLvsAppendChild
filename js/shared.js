@@ -1,77 +1,37 @@
-const COL_COUNT = 20, ROW_COUNT = 2000;
+import data from './data.js';
 
-export const root = document.getElementById("root");
+export const results = {};
 
-function generateData() {
-    const rows = [];
-    for (let r = 0; r < ROW_COUNT; r++) {
-        const row = [];
-        rows.push(row);
-        for (let c = 0; c < COL_COUNT; c++)
-            row.push(`${c},${r}`);
-    }
-    return rows;
-}
-
-export const data = generateData();
-
-export const DOCUMENT_FRAGMENT_LABEL = 'appendChild(DocumentFragment)',
-    MANY_NODES_LABEL = 'appendChild(Node)',
-    HTML_LABEL = 'innerHTML';
-
-
-const results = {};
-
-
-function addResult(label, time) {
-    if (!results[label])
-        results[label] = [];
-    results[label].push(time);
+function addResult(label, start, domDone, rendered) {
+    results[label] = results[label] ?? [];
+    results[label].push({ start, domDone, rendered });
 }
 
 
-export function printResults() {
-    Object.entries(results).forEach(([key, val]) => {
-        console.log(key, val, 'avg=', average(val));
-    });
-}
-
-
-export function execute(label, toExecute) {
+export function execute(label, render) {
     return new Promise(resolve => {
+        // try {
+        //     gc(); // will not work without flags
+        // } catch (error) {
+        //     console.error(error);
+        // }
+
         requestAnimationFrame(() => {
             const domLabel = label + "_INSERT";
             console.time(label);
             console.time(domLabel);
-            const startTime = Date.now();
-            toExecute();
+            const start = Date.now();
+            render(data);
+            const domDone = Date.now();
             console.timeEnd(domLabel);
-            addResult(domLabel, Date.now() - startTime);
             setTimeout(() => {
                 console.timeEnd(label);
-                addResult(label, Date.now() - startTime);
-                setTimeout(resolve, 50);
+                addResult(label, start, domDone, Date.now());
+                setTimeout(resolve );
             });
         });
     });
 }
-
-
-
-export function clean() {
-    return new Promise(resolve => {
-        requestAnimationFrame(() => {
-            root.innerHTML = '';
-            setTimeout(() => {
-                setTimeout(resolve, 50);
-            });
-        });
-    });
-}
-
-function average(array) {
-    return array.reduce((total, val) => total + val, 0) / array.length;
-}
-
+ 
 
 
