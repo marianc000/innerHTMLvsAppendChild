@@ -10,11 +10,11 @@ function addResult(label, start, domDone, rendered) {
 
 export function execute(label, render) {
     return new Promise(resolve => {
-        // try {
-        //     gc(); // will not work without flags
-        // } catch (error) {
-        //     console.error(error);
-        // }
+        try {
+            gc(); // will not work without flags
+        } catch (error) {
+            console.error(error);
+        }
 
         requestAnimationFrame(() => {
             const domLabel = label + "_INSERT";
