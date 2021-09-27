@@ -1,3 +1,4 @@
+// html.js
 function row(vals) {
     return '<div class="row">'
         + vals.map(val => `<div title="${val}">${val}</div>`).join('')

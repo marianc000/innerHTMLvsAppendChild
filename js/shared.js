@@ -27,11 +27,11 @@ export function execute(label, render) {
             setTimeout(() => {
                 console.timeEnd(label);
                 addResult(label, start, domDone, Date.now());
-                setTimeout(resolve );
+                resolve();
             });
         });
     });
 }
- 
+
 
 

@@ -1,3 +1,4 @@
+// data.js
 const COL_COUNT = 20, ROW_COUNT = 2000;
  
 function generateData() {
