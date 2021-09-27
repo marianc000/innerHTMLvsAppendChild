@@ -50,8 +50,8 @@ function displayTable(data, caption) {
 
 export default function showResults() {
     const { dom, paint } = separate();
-    displayTable(dom, 'Changing DOM ');
-    displayTable(paint, 'Painting');
+    displayTable(dom, 'Changing DOM, ms');
+    displayTable(paint, 'Painting, ms');
 }
 
 
