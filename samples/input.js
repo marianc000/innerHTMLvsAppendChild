@@ -25,4 +25,4 @@ root.appendChild(input({
     className: 'MyClass',
     type: 'checkbox',
     checked: true
-}))
+}));
